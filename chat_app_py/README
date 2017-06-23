@@ -1,0 +1,5 @@
+make a virtual environmet using: mkvirtualenv env
+ pip install -r requirements.txt
+ ./manage migrate
+ ./manage makemigrations
+ ./manage migrate pk_chat

@@ -1,0 +1,35 @@
+<h3 style="margin-left:500px;">Hello {{request.user}}</h3>
+<a style="margin-left:780" href="/chat/">Start Chat</a>
+<a style="margin-left:980" href="/accounts/logout/">Logout</a></div>
+<h4 style="margin-left:780px">Friend Requests</h4>
+<h4 style="margin-left:300px;">Here are your Friends</h4>
+
+{% for friend in friends %}
+	{% if friend.status == 'Request_sent' and friend.sender != request.user %}
+	
+		<div style="margin-left:780px;">
+			<div >{{friend.sender}}
+			<a href="/chat/add_friend/{{friend.id}}">Accept</a></div>
+		</div>
+	{% endif %}
+	{% if friend.status == 'Accepted'%}
+	<div style="margin-left:300px;">
+		<div class="row"">
+		{% if friend.sender == request.user %}
+			{{friend.reciever}}
+		{% else %}
+			{{friend.sender}}
+		{% endif %}
+		</div>	
+	</div>
+	{% endif %}
+{% endfor %}
+<form action="/chat/request/" method="POST" style="margin-left:480px; margin-top:50px;">{% csrf_token %}
+  <select name="user">
+  	{% for u_user in rem_user %}
+    <option value="{{u_user}}">{{u_user}}</option>
+  	{% endfor %}
+  </select>
+
+  <input type="submit" value="Send Request">
+</form>
