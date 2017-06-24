@@ -64,11 +64,15 @@
               data: dataToSend,
               dataType: "json",
               success: function(data) {
-                  alert("hi");
-                  console.log(data);
+                 data1 = [];
+                  data1= data.split(" sent by ");
+                  $(".show_chat").append("<li></li>");
+                  $chat_window = $(".show_chat").find('li');
+                  $chat_window.last().html(data1[1] + ":" + data1[0]);
+                  $(".msgs")[0].scrollTop = $(".msgs")[0].scrollHeight;
+                  $(".say").val("");
               },
               error: function(data) {
-                console.log(data);
                 $(".say").val("");
                 $(".msgs")[0].scrollTop = $(".msgs")[0].scrollHeight;
               },

@@ -37,12 +37,14 @@ def home(request, frnd_id=None):
         messages = Message.objects.filter(Q(reciever=me, sender=frnd_id) | Q(sender=me, reciever=frnd_id))
         context["messages"] = messages
         context["frnd_id"] = frnd_id
-    return render(request, "pk_chat/chat_window.html", context)
+    return render(request, "cb_chat/chat_window.html", context)
 
 
 @csrf_exempt
 def send(request):
     p = request.POST
     user = User.objects.get(id=p['room'])
-    Message.objects.create(message=p['text'], sender=request.user, reciever=user)
-    return HttpResponse("")
+    print(user)
+    kj = Message.objects.create(message=p['text'], sender=request.user, reciever=user)
+    print(kj)
+    return HttpResponse(kj)
